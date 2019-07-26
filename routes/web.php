@@ -19,10 +19,15 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+Route::get('/cards', 'CardsController@listCards');  // folosita doar pentru teste
+
+Route::resource('tasks', 'TasksController');
+
 Route::get('/clear', function() {
     $exitCode = Artisan::call('config:clear');
     $exitCode = Artisan::call('cache:clear');
     $exitCode = Artisan::call('key:generate');
     $exitCode = Artisan::call('config:cache');
-    return 'DONE'; //Return anything
+    $exitCode = Artisan::call('dump-autoload');
+    return 'DONE';
 });

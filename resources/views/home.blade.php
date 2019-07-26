@@ -46,7 +46,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Orbitron:400,900&display=swap" rel="stylesheet">
     <!--<script src="https://kit.fontawesome.com/aee169abdf.js"></script>-->
-    <link rel="stylesheet" type="text/css" href="/css/icofont/icofont.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/icofont/icofont.min.css') }}">
     <script type="text/javascript" src="{{ asset('js/home.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/mouse-parallax.js') }}" defer></script>
 
@@ -117,85 +117,28 @@
             </header>
 
             <section class="content">
+
                 <div class="row">
                     <h2>My Projects</h2>
                 </div>
-                <div id="blackLine" class="row">
 
+                <div id="blackLine" class="row">
                 </div>
+
                 <div class="row">
 
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/spanzuratoarea/" target="_blank"><img src="{{ asset('images/hang/game-286x163.jpg') }}" class="card-img-top" alt="hangman game picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">HangMan Game</h5>
-                            <p class="card-text">Game is writen in PHP and it picks random words (in romaniam) from an array</p>
-                            <a href="http://iulian.dx.am/spanzuratoarea/" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
+                        <?php $cards = DB::table('cards')->get(); ?>
 
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/db/" target="_blank"><img src="{{ asset('images/db/stock-app-286x190.jpg') }}" class="card-img-top" alt="warehouse picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">Stock product app</h5>
-                            <p class="card-text">The app is using PHP and MySQL, inputs are filtered to avoid HTML injection</p>
-                            <a href="http://iulian.dx.am/db/" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
-
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/todo/todo.html" target="_blank"><img src="{{ asset('images/todo/board-286x191.jpg') }}" class="card-img-top" alt="hangman game picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">To do list</h5>
-                            <p class="card-text">App is writen in JavaScript and uses LocalStorage to save your list of tasks</p>
-                            <a href="http://iulian.dx.am/todo/todo.html" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
-                    <!--scos pt ca nu functioneaza .htaccess pe awardspace.com-->
-                    <!--<div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/apache/"><img src="/images/apache/apache.png" class="card-img-top" alt="warehouse picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">Apache file browsing</h5>
-                            <p class="card-text">DirectoryListings in Apache using .htacces file</p>
-                            <a href="http://iulian.dx.am/apache/" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>-->
-
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/imc/" target="_blank"><img src="{{ asset('images/psd/template-286x214.png') }}" class="card-img-top" alt="website picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">PSD to HTML</h5>
-                            <p class="card-text">PSD to HTML web site using HTML, CSS, Bootstrap, JavaScript, jQuery UI</p>
-                            <a href="http://iulian.dx.am/imc/" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
-
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://squid.iulian.dx.am/" target="_blank"><img src="{{ asset('images/group11.svg') }}" class="card-img-top" alt="hangman game picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">PSD to HTML</h5>
-                            <p class="card-text">PSD to HTML web site using HTML, CSS, Bootstrap, JavaScript, jQuery UI</p>
-                            <a href="http://squid.iulian.dx.am/" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
-
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/db/" target="_blank"><img src="{{ asset('images/db/stock-app-286x190.jpg') }}" class="card-img-top" alt="warehouse picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">Stock product app</h5>
-                            <p class="card-text">The app is using PHP and MySQL, inputs are filtered to avoid HTML injection</p>
-                            <a href="http://iulian.dx.am/db/" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
-
-                    <div class="card" style="width: 18rem;">
-                        <a href="http://iulian.dx.am/todo/todo.html" target="_blank"><img src="{{ asset('images/todo/board-286x191.jpg') }}" class="card-img-top" alt="hangman game picture"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">To do list</h5>
-                            <p class="card-text">App is writen in JavaScript an uses LocalStorage to save your list of tasks</p>
-                            <a href="http://iulian.dx.am/todo/todo.html" target="_blank" class="btn btn-primary">Go to...</a>
-                        </div>
-                    </div>
+                        @foreach($cards as $card)
+                            <div class="card" style="width: 18rem;">
+                                <a href="{{ $card->href }}" target="_blank"><img src="{{ asset('images/') . $card->img }}" class="card-img-top" alt="{{ $card->alt }}"></a>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $card->title }}</h5>
+                                    <p class="card-text">{{ $card->text }}</p>
+                                    <a href="{{ $card->href }}" target="_blank" class="btn btn-primary">Go to...</a>
+                                </div>
+                            </div>
+                        @endforeach
                 </div>
             </section>
 
@@ -236,7 +179,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 

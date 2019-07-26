@@ -24,5 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+
+        //$cards = DB::table('cards')->where('id', '>=', 1)->get();
     }
 }

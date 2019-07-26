@@ -53,7 +53,7 @@
 header
 {
     width:100%;
-    background:url(../images/bg-laptop3.webp) no-repeat center center fixed;
+    background-image: url(../images/bg-laptop3.webp);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
