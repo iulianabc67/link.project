@@ -13,7 +13,7 @@ class TasksController extends Controller
 {
     public  function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
 
 
 
@@ -36,7 +36,10 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = task::all();
+
+        //aduce din tabela tasks doar inregistrarile pentru id-ul logat si le ordoneaza alfabetic dupa caregory
+
+        $tasks = task::where('user_id', '=', Auth::user()->id)->orderBy('category')->get();
         return view('tasks.task', compact('tasks'));
     }
 
@@ -79,6 +82,9 @@ class TasksController extends Controller
 
         $task = new Task();
 
+        $id = \Auth::user()->id;
+
+        $task->user_id = $id;
         $task->category = $request->get('category');
         $task->title = $request->get('title');
         $task->description = $request->get('description');
@@ -111,7 +117,11 @@ class TasksController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('tasks.edit',compact('task',$task));
+        //$categories = task::orderBy('category')->get();
+
+        $tasks = task::orderBy('category')->get();
+
+        return view('tasks.edit',compact('tasks', $tasks, 'task', $task));
     }
 
     /**
@@ -127,9 +137,9 @@ class TasksController extends Controller
 
         $request->validate([
             'category' => 'required|max:11',
-            'title' => 'required',
+            'title' => 'required|max:11',
             'description' => 'required|max:1025',
-            'status' => '0'
+            'status' => 'required'
         ]);
         $task->update($request->all());
 

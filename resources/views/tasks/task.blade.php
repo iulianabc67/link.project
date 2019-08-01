@@ -30,14 +30,16 @@
             <div class="container">
                 <form>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">Option 1
+                        <input type="checkbox" value="all">All
                     </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">Option 2
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">Option 3
-                    </label>
+                    <?php
+                    $categories = DB::table('tasks')->distinct()->orderBy('category')->get(['category']);
+
+                    foreach($categories as $category)
+                        echo "<label class=\"checkbox-inline\">
+                        <input type=\"checkbox\" value=\"$category->category\">$category->category
+                    </label>";
+                    ?>
                 </form>
             </div>
             <div class="col-lg-12 text-center" style="margin-top:10px;margin-bottom: 10px;">
@@ -51,7 +53,7 @@
                     <div class="col-sm-2"><strong>Category</strong></div>
                     <div class="col-sm-2"><strong>Title</strong></div>
                     <div class="col-sm-7"><strong>Description</strong></div>
-                    <div class="col-sm-1"><strong>Edit</strong></div>
+                    <div class="col-sm-1"><strong></strong></div>
                 </div>
             </li>
 

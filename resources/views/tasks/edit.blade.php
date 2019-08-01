@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="text-center">Add task</h2>
+            <h2 class="text-center">Edit task</h2>
         </div>
     </div>
 
@@ -20,30 +20,35 @@
             </ul>
         </div>
     @endif
-
-    <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('tasks', [$task->id])}}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <div class="container">
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="form-group">
                         <label for="category"><strong>Category:</strong></label>
-                        <select class="form-control" id="category" name="category">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                        <select class="form-control" value="{{ $task->category }}" name="category">
+
+                            {{--@foreach($tasks->category as $category)
+                                 <option value="{{ $task->category }}">{{ $task->category }}</option>
+                            @endforeach--}}
+
+                            <option value="{{ $task->category }}">{{ $task->category }}</option>
+
                         </select>
                     </div>
                 </div>
+
+                <pre>{{ print_r($task->category) }}</pre>
+                <pre>{{ print_r(url('tasks', [$task->id])) }}</pre>
+
             </div>
 
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <label for="title"><strong>Title:</strong></label>
-                        <input type="text" name="title" class="form-control" placeholder="Task Title">
+                        <input type="text" value="{{ $task->title }}" name="title" class="form-control" placeholder="Task Title">
                     </div>
                 </div>
             </div>
@@ -52,7 +57,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="description"><strong>Description:</strong></label>
-                        <textarea class="form-control rounded-0" name="description" placeholder="Describe your task"></textarea>
+                        <textarea class="form-control rounded-0" value="description" name="description" placeholder="Describe your task">{{ $task->description }}</textarea>
                     </div>
                 </div>
             </div>
@@ -61,9 +66,9 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="form-group">
                         <label for="status"><strong>Status:</strong></label>
-                        <select class="form-control" name="status">
-                            <option value="0">in progress</option>
-                            <option value="1">ready</option>
+                        <select class="form-control" value="{{ $task->status }}" name="status">
+                            <option value="0" {{ $task->status == 0 ? 'selected' : '' }}>in progress</option>
+                            <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>ready</option>
                         </select>
                     </div>
                 </div>

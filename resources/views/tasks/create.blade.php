@@ -28,12 +28,26 @@
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="form-group">
-                        <label for="category"><strong>Category:</strong></label>
+                        <label for="category"><strong>New category:</strong></label>
+                        <input type="text" name="category" class="form-control" placeholder="New category">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="form-group">
+                        <label for="category"><strong>Select an existing category:</strong></label>
                         <select class="form-control" id="category" name="category">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                            <option hidden disabled selected value> -- select an category -- </option>
+
+                            <?php
+                            $categories = DB::table('tasks')->distinct()->orderBy('category')->get(['category']);
+
+                            foreach($categories as $category)
+                                echo "<option value=\"$category->category\">$category->category</option>";
+                            ?>
+
                         </select>
                     </div>
                 </div>

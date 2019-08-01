@@ -34,7 +34,7 @@ class CardsSeeder extends Seeder
 
         DB::table('cards')->insert([
             'active' => 'true',
-            'href' => 'http://iulian.dx.am/todo/todo.html',
+            'href' => 'http://localhost/link.project/public/tasks',
             'img' => '/todo/board-286x191.jpg',
             'alt' => 'to do list picture',
             'title' => 'To do list',
